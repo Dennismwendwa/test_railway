@@ -5,4 +5,10 @@ def post(request):
 
 	return render(request, "post/index.html", {})
 
-# Create your views here.
+def detail(request, pk):
+
+	return render(request, "post/detail.html", {})
+
+def category(request):
+
+	return render(request, "post/category.html", {})
