@@ -10,9 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
-import environ
-env = environ.Env()
-environ.Env.read_env()
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,19 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = 'django-insecure-3o2l(-k9z9t8fj1i2702!nk)obzjz-mn&^i@lomfjdnq&1@a0_' 
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
-env = environ.Env(
-		DEBUG=(bool, False)
-)
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
-DEBUG = env('DEBUG')
-SECRET_KEY = env("SECRET_KEY")
 
 ALLOWED_HOSTS = ['*']
 
@@ -100,11 +91,11 @@ WSGI_APPLICATION = 'fricode.wsgi.application'
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': env("DB_NAME"),
-		'USER': env("DB_USER"),
-		'PASSWORD': env("DB_PASSWORD"),
-		'HOST': env("DB_HOST"),
-		'PORT': env("DB_PORT"),
+		'NAME': config("DB_NAME"),
+		'USER': config("DB_USER"),
+		'PASSWORD': config("DB_PASSWORD"),
+		'HOST': config("DB_HOST"),
+		'PORT': config("DB_PORT"),
 	}
 }
 
