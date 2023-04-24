@@ -1,9 +1,17 @@
 from django.shortcuts import render
 from django.urls import path
+from . models import Post
 
 def post(request):
 
-	return render(request, "post/index.html", {})
+	posts = Post.objects.all()
+
+
+
+
+	return render(request, "post/index.html", {
+			'posts': posts,
+			})
 
 def detail(request, pk):
 
